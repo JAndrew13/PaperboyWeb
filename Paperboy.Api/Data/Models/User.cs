@@ -1,4 +1,4 @@
-﻿namespace Paperboy.Api.Data;
+﻿namespace Paperboy.Api.Data.Models;
 public class User
 {
     public Guid UserId { get; set; }
