@@ -82,3 +82,6 @@ C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\refint\Paperboy.Api.dll
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\Paperboy.Api.pdb
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\Paperboy.Api.genruntimeconfig.cache
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\ref\Paperboy.Api.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\CryptoExchange.Net.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Kucoin.Net.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Newtonsoft.Json.dll

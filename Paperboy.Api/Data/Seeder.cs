@@ -1,4 +1,5 @@
-﻿namespace Paperboy.Api.Data
+﻿namespace Paperboy.Api.Data.Models
+
 {
     public static class Seeder
     {
