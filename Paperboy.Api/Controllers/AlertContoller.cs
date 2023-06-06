@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using Paperboy.Api.Services;
-//using Paperboy.Api.Dtos;
+using Paperboy.Api.Dtos;
 using Paperboy.Api.Data.Models;
 
 namespace Paperboy.api.Controllers
@@ -21,12 +21,14 @@ namespace Paperboy.api.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAlert(Alert alert)
+        public async Task<IActionResult> CreateAlert([FromBody] AlertDto alertDto)
         {
             // Create new alert object using alert service
-            var alertObj = await _alertService.CreateAlert(alert);
-            return (Ok(alertObj));
+            var alertObj = _alertService.CreateAlert(alertDto);
 
+            // Process alert object using alert service
+            var order = await _alertService.ProcessAlert(alertObj);
+            return (Ok());
         }
 
         [HttpPost("Buy x Matic")]

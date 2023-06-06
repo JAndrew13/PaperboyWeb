@@ -28,7 +28,7 @@ namespace Paperboy.Api.Services
                 Token1 = alert.Ticker1,
                 Token2 = alert.Ticker2,
                 Pair = alert.Ticker1 + "-" + alert.Ticker2,
-                BotId = alert.BotId,
+                Bot = alert.Bot,
             };
 
             return _order;

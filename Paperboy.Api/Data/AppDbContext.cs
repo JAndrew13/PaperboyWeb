@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Paperboy.Api.Data.Models;
-using System.Numerics;
-using System.Reflection.Metadata;
 
 namespace Paperboy.Api.Data
 {
@@ -9,20 +7,31 @@ namespace Paperboy.Api.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
-        // Tables go here
-        public DbSet<User> Users => Set<User>();
 
+        public DbSet<Alert> Alerts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Bot> Bots { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder
-        //        .Entity<DateWord>()
-        //        .HasOne(e => e.Word)
-        //        .WithMany(f => f.DateWords)
-        //        .OnDelete(DeleteBehavior.ClientCascade);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Alert>()
+                .HasOne(a => a.Bot)
+                .WithMany(b => b.Alerts)
+                .HasForeignKey(a => a.BotId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-        //}
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Bot)
+                .WithMany(b => b.Orders)
+                .HasForeignKey(o => o.BotId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Alert>()
+                .HasOne(a => a.Order)
+                .WithOne(o => o.Alert)
+                .HasForeignKey<Order>(o => o.AlertId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

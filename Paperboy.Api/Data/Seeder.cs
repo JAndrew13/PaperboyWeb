@@ -3,15 +3,17 @@
 {
     public static class Seeder
     {
-        public static void Seed(AppDbContext context) 
+        public static void Seed(AppDbContext context)
         {
-            SeedUsers(context);
+            SeedBots(context);
         }
-        public static void SeedUsers(AppDbContext db)
+        public static void SeedBots(AppDbContext db)
         {
-            if (db.Users.Any()) return;
-            db.Users.Add(new User { Name = "John" });
-            db.Users.Add(new User { Name = "Jane" });
+            if (db.Bots.Any()) return;
+            db.Bots.Add(new Bot 
+            {
+                Id = Guid.NewGuid(),
+            });
             db.SaveChanges();
         }
     }

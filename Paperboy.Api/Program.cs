@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Paperboy.Api.Data;
+using Paperboy.Api.Data.Models;
 using Paperboy.Api.Services;
 //using Paperboy.Api.Services;
 
@@ -27,9 +28,7 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -42,6 +41,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ExchangeService>();
+builder.Services.AddScoped<BotService>();
+builder.Services.AddScoped<AccountService>();
 
 var app = builder.Build();
 
@@ -50,8 +51,10 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-    //Seeder.SeedWords(db);
-    //Seeder.SeedPlayers(db);
+    Seeder.SeedBots(db);
+    // DB Seeding goes here
+
+
 }
 
 // Configure the HTTP request pipeline.

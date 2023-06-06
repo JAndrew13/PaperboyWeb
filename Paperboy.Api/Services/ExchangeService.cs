@@ -78,7 +78,7 @@ namespace Paperboy.Api.Services
 
             _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
             _order.TimeStamp = DateTime.Now;
-            _order.OrderId = orderData.Data.Id;
+            _order.TxId = orderData.Data.Id;
             return _order;
         }
 
@@ -93,7 +93,7 @@ namespace Paperboy.Api.Services
 
             _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
             _order.TimeStamp = DateTime.Now;
-            _order.OrderId = orderData.Data.Id;
+            _order.TxId = orderData.Data.Id;
             return _order;
         }
 
