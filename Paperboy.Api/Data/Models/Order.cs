@@ -2,7 +2,7 @@
 {
     public class Order
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string TxId { get; set; } = "";
         public string OrderType { get; set; } = ""; // buy or sell (token1 for token2)
         public string Token1 { get; set; } = "MATIC"; // default to MATIC

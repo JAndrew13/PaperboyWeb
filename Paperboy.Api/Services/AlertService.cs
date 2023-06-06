@@ -11,7 +11,6 @@ namespace Paperboy.Api.Services
 {
     public class AlertService
     {
-        //private readonly AppDbContext _db;
         private readonly OrderService _orderService;
         private BotService _botService;
         private AppDbContext _db;
@@ -47,19 +46,23 @@ namespace Paperboy.Api.Services
             Bot _bot = await _botService.GetBotById(_alert.BotId);
             _alert.Bot = _bot;
 
+            // save alert to db
             await _db.Alerts.AddAsync(_alert);
             await _db.SaveChangesAsync();
 
             // create order from alert
             Order order = _orderService.CreateNewOrder(_alert);
+
+            // save order to db
+            await _db.Orders.AddAsync(order);   
+            await _db.SaveChangesAsync();
+
             order = await _orderService.PlaceMarketOrder(order);
 
+            // save order to db
+
+
             return order;
-
-            //_db.Alerts.Add(_alert);
-            //_db.SaveChanges();
         }
-
-       
     }
 }

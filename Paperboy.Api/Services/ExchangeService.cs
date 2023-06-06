@@ -4,6 +4,9 @@ using Kucoin.Net.Interfaces.Clients;
 using Kucoin.Net.Objects;
 using Paperboy.Api.Data.Models;
 
+
+// TODO: Add API Credentials to config
+
 namespace Paperboy.Api.Services
 {
 
@@ -18,9 +21,9 @@ namespace Paperboy.Api.Services
                 new KucoinClientOptions() 
                 {
                 ApiCredentials = new KucoinApiCredentials(
-                    "API KEY",
-                    "API SECRET",
-                    "API PASSPHRASE"),
+                    "KEY",
+                    "SECRET",
+                    "PASSPHRASE"),
                 });
         }
 
@@ -78,8 +81,17 @@ namespace Paperboy.Api.Services
 
             _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
             _order.TimeStamp = DateTime.Now;
-            _order.TxId = orderData.Data.Id;
+
+            if (_order.Status == "open") 
+            {
+                _order.TxId = orderData.Data.Id;
+            } else
+            {
+                _order.TxId = "error";
+            }
+
             return _order;
+
         }
 
         public async Task<object> PlaceMarketSellOrder(Order _order)
@@ -93,7 +105,16 @@ namespace Paperboy.Api.Services
 
             _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
             _order.TimeStamp = DateTime.Now;
-            _order.TxId = orderData.Data.Id;
+
+            if (_order.Status == "open")
+            {
+                _order.TxId = orderData.Data.Id;
+            }
+            else
+            {
+                _order.TxId = "error";
+            }
+
             return _order;
         }
 
