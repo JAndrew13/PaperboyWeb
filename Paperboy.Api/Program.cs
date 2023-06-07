@@ -32,11 +32,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Configuration.AddJsonFile("secrets.json");
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.Configure<Secrets>(options => builder.Configuration.GetSection("Secrets").Bind(options));
 
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddScoped<OrderService>();

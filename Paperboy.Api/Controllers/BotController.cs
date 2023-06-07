@@ -1,52 +1,63 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Paperboy.Api.Services;
-using Paperboy.Api.Dtos;
 using Paperboy.Api.Data.Models;
+using Paperboy.Api.Dtos;
 
-// TODO: Get bot Stats endpoint
-// TODO: Update bot endpoint
-// TODO: Delete bot endpoint
+namespace Paperboy.Api.Controllers;
 
-namespace Paperboy.Api.Controllers
+[Route("[controller]")]
+[ApiController]
+public class BotController : ControllerBase
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class BotController : ControllerBase
+    private BotService _botService;
+
+    public BotController(BotService botService)
     {
-        private BotService _botService;
+        _botService = botService;
+    }
 
-        public BotController(BotService botService) 
-        {
-            _botService = botService;
-        }
-        // Create New Bot
-        [HttpPost("Create")]
-        IActionResult CreateBot()
-        {
-            Bot _bot = _botService.CreateNewBot();
-            return Ok("Hello World");
-        }
+    [HttpPost("Create")]
+    public IActionResult CreateBot()
+    {
+        Bot _bot = _botService.CreateNewBot();
+        return Ok(_bot);
+    }
 
-        // TODO: Get bot Stats endpoint
-        [HttpGet("Report")]
-        IActionResult GetBotStats()
-        {
-            return Ok("Hello World");
-        }
+    [HttpGet("Orders")]
+    public async Task<IActionResult> GetBotOrders(Guid botId)
+    {
+        Order[] orders = await _botService.GetBotOrders(botId);
+        return Ok(orders);
+    }
 
-        // TODO: Update bot endpoint
-        [HttpPut("Update")]
-        IActionResult UpdateBot()
-        {
-            return Ok("Hello World");
-        }
+    [HttpGet("Alerts")]
+    public async Task<IActionResult> GetBotAlerts(Guid botId)
+    {
+        Alert[] alerts = await _botService.GetBotAlerts(botId);
+        return Ok(alerts);
+    }
 
-        // TODO: Delete bot endpoint
-        [HttpDelete("Remove")]
-        IActionResult DeleteBot()
+    // TODO: Update bot endpoint
+    [HttpPatch("Update")]
+    public async Task<IActionResult> UpdateBot(BotDto botDto)
+    {
+        await _botService.UpdateBot(botDto);
+        return Ok("Success: Bot Updated");
+    }
+
+    [HttpDelete("Remove")]
+    public async Task<IActionResult> RemoveBot(Guid botId)
+    {
+        bool response = await _botService.RemoveBot(botId);
+        if (response)
         {
-            return Ok("Hello World");
+            return Ok("Success! Bot (" + botId + ") has been removed");
+        }
+        else
+        {
+            return BadRequest("Error! Bot (" + botId + ") could not be removed");
         }
     }
 }
+
