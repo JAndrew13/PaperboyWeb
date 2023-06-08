@@ -59,11 +59,23 @@ public class AlertService
 
         order = await _orderService.PlaceMarketOrder(order);
 
-        // add ability to get order status, is filled?
-        // save order to db
+        
+        OrderDto orderDto= new OrderDto
+        {
+            Id = order.Id.ToString(),
+            TxId = order.TxId,
+            OrderType = order.OrderType,
+            Token1 = order.Token1,
+            Token2 = order.Token2,
+            Pair = order.Pair,
+            Status = order.Status,
+            Amount = order.Amount,
+            TimeStamp = order.TimeStamp,
+        };
 
+        var updatedOrder = await _orderService.GetOrderUpdateUntilFilledOrLimit(orderDto);
 
-
+        order.Status = updatedOrder.Status!;
         return order;
     }
 }

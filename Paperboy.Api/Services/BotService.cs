@@ -5,13 +5,7 @@ using Paperboy.Api.Data.Models;
 using Paperboy.Api.Dtos;
 
 
-// TODO: Update Bot Object in Database
-// TODO: Remove Bot Object
-// TODO: Get Bot Stats
-// TODO: Calculate Bot Stats
-// TODO: Calculate Bot ROI
-// TODO: Calculate Bot Profit
-// TODO: Calculate Bot Los
+
 // TODO: Get Bot Orders
 // TODO: Get Bot Alerts
 // TODO: Get Bot Trades

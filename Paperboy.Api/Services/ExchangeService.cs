@@ -82,15 +82,15 @@ public class ExchangeService
             quantity: _order.Amount,
             timeInForce: TimeInForce.GoodTillCanceled);
 
-        _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
+        _order.Status = orderData.Success ? "OPEN" : orderData.Error!.Message;
         _order.TimeStamp = DateTime.Now;
 
-        if (_order.Status == "open") 
+        if (_order.Status == "OPEN") 
         {
             _order.TxId = orderData.Data.Id;
         } else
         {
-            _order.TxId = "error";
+            _order.TxId = "ERROR";
         }
 
         return _order;
@@ -145,21 +145,21 @@ public class ExchangeService
         return orderData;
     }
 
-    public async Task<object> GetOrderById(string TxId)
+    public async Task<object> GetOrderUpdateById(string TxId)
     {
         var orderData = await _client.SpotApi.Trading.GetOrderAsync(TxId); // example
         return orderData;
     }
 
-    public async Task<object> CancelOrderById()
+    public async Task<object> CancelOrderById(string TxId)
     {
-        var orderData = await _client.SpotApi.Trading.CancelOrderAsync("1234"); // example
+        var orderData = await _client.SpotApi.Trading.CancelOrderAsync(TxId); // example
         return orderData;
     }
-    
-    public async Task<object> GetUserTrades()
+
+    public async Task<object> GetUserTrades(string pair)
     {
-        var userTrades = await _client.SpotApi.Trading.GetUserTradesAsync("MATIC-USDC"); //example
+        var userTrades = await _client.SpotApi.Trading.GetUserTradesAsync(pair); //example
         return userTrades;
     }
 
