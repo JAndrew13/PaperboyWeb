@@ -8,8 +8,8 @@ namespace Paperboy.Api.Services;
 public class AlertService
 {
     private readonly OrderService _orderService;
-    private BotService _botService;
-    private AppDbContext _db;
+    private readonly BotService _botService;
+    private readonly AppDbContext _db;
 
     public AlertService(
         AppDbContext db, 
@@ -24,7 +24,7 @@ public class AlertService
 
     public Alert CreateAlert(AlertDto alert)
     {
-        Alert _alert = new Alert
+        Alert _alert = new()
         {
             Action = alert.Action,
             Ticker1 = alert.Ticker1,
@@ -56,7 +56,7 @@ public class AlertService
         order = await _orderService.PlaceMarketOrder(order);
 
         
-        OrderDto orderDto= new OrderDto
+        OrderDto orderDto= new()
         {
             Id = order.Id.ToString(),
             TxId = order.TxId,
@@ -65,7 +65,7 @@ public class AlertService
             Token2 = order.Token2,
             Pair = order.Pair,
             Status = order.Status,
-            Amount = order.Amount,
+            TokenAmount = order.TokenAmount,
             TimeStamp = order.TimeStamp,
         };
 

@@ -8,24 +8,19 @@ namespace Paperboy.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        [HttpGet("Balance")]
+        [HttpGet("Accounts")]
         public IActionResult Get()
         {
             // TODO: Fetch Account Balance from Exchange using Account Service
+            // Return A list of accounts and their balances of each token
             return Ok("Hello World");
         }
 
-        [HttpGet("Tokens")]
+        [HttpGet("AccountTokens")]
         public IActionResult GetTokens()
         {
             // TODO: Fetch Account Tokens from Exchange using Account Service
-            return Ok("Hello World");
-        }
-
-        [HttpGet("Price")]
-        public IActionResult GetPrice()
-        {
-            // TODO: Fetch Price of Token from Exchange using Account Service
+            // Return A list tokens for a specific account
             return Ok("Hello World");
         }
     }

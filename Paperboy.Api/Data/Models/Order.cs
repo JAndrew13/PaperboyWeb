@@ -9,11 +9,13 @@ public class Order
     public string Token2 { get; set; } = "USDC";
     public string Pair { get; set; } = "";
     public string Status { get; set; } = "PENDING";
-    public decimal Amount { get; set; } = 0;
+    public decimal TokenAmount { get; set; } = 0;
+    public decimal AtPrice { get; set; } = 0;
+    public decimal TotalValue{get ; set; } = 0;
     public DateTime TimeStamp { get; set; }
 
-    public Alert Alert { get; set; }
+    public Alert? Alert { get; set; }
     public Guid AlertId { get; set; }
-    public Bot Bot { get; set; }
+    public Bot? Bot { get; set; }
     public Guid BotId { get; set; }
 }

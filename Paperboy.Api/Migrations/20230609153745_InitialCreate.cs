@@ -22,11 +22,7 @@ namespace Paperboy.Api.Migrations
                     Exchange = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TradingPair = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeRunning = table.Column<TimeSpan>(type: "time", nullable: false),
                     StartingBalance = table.Column<double>(type: "float", nullable: false),
-                    CurrentBalance = table.Column<double>(type: "float", nullable: false),
-                    ProfitLoss = table.Column<double>(type: "float", nullable: false),
-                    ProfitLossPercent = table.Column<double>(type: "float", nullable: false),
                     TotalTrades = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -67,7 +63,9 @@ namespace Paperboy.Api.Migrations
                     Token2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pair = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TokenAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AtPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AlertId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BotId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)

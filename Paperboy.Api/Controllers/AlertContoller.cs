@@ -27,7 +27,7 @@ public class AlertsController : ControllerBase
         var alertObj = _alertService.CreateAlert(alertDto);
 
         // Process alert object using alert service
-        var order = await _alertService.ProcessAlert(alertObj);
+        await _alertService.ProcessAlert(alertObj);
         return Ok();
     }
 

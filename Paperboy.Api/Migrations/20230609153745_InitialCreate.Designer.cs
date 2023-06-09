@@ -12,7 +12,7 @@ using Paperboy.Api.Data;
 namespace Paperboy.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230606153654_InitialCreate")]
+    [Migration("20230609153745_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -65,9 +65,6 @@ namespace Paperboy.Api.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("CurrentBalance")
-                        .HasColumnType("float");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -80,21 +77,12 @@ namespace Paperboy.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ProfitLoss")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ProfitLossPercent")
-                        .HasColumnType("float");
-
                     b.Property<double>("StartingBalance")
                         .HasColumnType("float");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("TimeRunning")
-                        .HasColumnType("time");
 
                     b.Property<int>("TotalTrades")
                         .HasColumnType("int");
@@ -117,7 +105,7 @@ namespace Paperboy.Api.Migrations
                     b.Property<Guid>("AlertId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal>("AtPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("BotId")
@@ -145,6 +133,12 @@ namespace Paperboy.Api.Migrations
                     b.Property<string>("Token2")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TokenAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("TxId")
                         .IsRequired()

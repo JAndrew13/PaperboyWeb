@@ -7,7 +7,7 @@ namespace Paperboy.Api.Controllers;
 [ApiController]
 public class ReportController : ControllerBase
 {
-    private ReportService _reportService;
+    private readonly ReportService _reportService;
 
     public ReportController(ReportService reportService)
     {

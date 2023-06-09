@@ -9,7 +9,7 @@ namespace Paperboy.Api.Controllers;
 [ApiController]
 public class BotController : ControllerBase
 {
-    private BotService _botService;
+    private readonly BotService _botService;
 
     public BotController(BotService botService)
     {

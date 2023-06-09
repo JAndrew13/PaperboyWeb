@@ -1,16 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Data;
-using System.Linq;
-using Paperboy.Api.Data;
+﻿using Paperboy.Api.Data;
 using Paperboy.Api.Data.Models;
 using Paperboy.Api.Dtos;
-using System.Data.Entity;
 
 namespace Paperboy.Api.Services;
 
 public class BotService
 {
-    private AppDbContext _db;
+    private readonly AppDbContext _db;
     public BotService(AppDbContext db)
     {
         _db = db;
@@ -61,21 +57,13 @@ public class BotService
             throw new Exception("No bot Id provided");
         }
         Guid botId = Guid.Parse(botDto.Id);
-        Bot bot = await _db.Bots.FindAsync(botId);
-        if (bot == null)
-        {
-            throw new Exception("No bot found with the provided Id");
-        }
-
+        Bot? bot = await _db.Bots.FindAsync(botId) ?? throw new Exception("No bot found with the provided Id");
         bot.Name = botDto.Name ?? bot.Name;
         bot.Description = botDto.Description ?? bot.Description;
         bot.Status = botDto.Status ?? bot.Status;
         bot.Exchange = botDto.Exchange ?? bot.Exchange;
         bot.TradingPair = botDto.TradingPair ?? bot.TradingPair;
         bot.StartingBalance = botDto.StartingBalance ?? bot.StartingBalance;
-        bot.CurrentBalance = botDto.CurrentBalance ?? bot.CurrentBalance;
-        bot.ProfitLoss = botDto.ProfitLoss ?? bot.ProfitLoss;
-        bot.ProfitLossPercent = botDto.ProfitLossPercent ?? bot.ProfitLossPercent;
         bot.TotalTrades = botDto.TotalTrades ?? bot.TotalTrades;
 
         await _db.SaveChangesAsync();

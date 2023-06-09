@@ -64,7 +64,6 @@ public class ExchangeService
             if (tokensList[x].Asset == token &&
                 tokensList[x].Type.ToString() == "Trade")
             {
-                var accountType = tokensList[x].Type;
                 return tokensList[x].Available;
             }
         }
@@ -77,7 +76,7 @@ public class ExchangeService
             symbol: _order.Pair,
             OrderSide.Buy,
             NewOrderType.Market,
-            quantity: _order.Amount,
+            quantity: _order.TokenAmount,
             timeInForce: TimeInForce.GoodTillCanceled);
 
         _order.Status = orderData.Success ? "OPEN" : orderData.Error!.Message;
@@ -101,7 +100,7 @@ public class ExchangeService
             symbol:_order.Pair,
             OrderSide.Sell,
             NewOrderType.Market,
-            quantity: _order.Amount,
+            quantity: _order.TokenAmount,
             timeInForce: TimeInForce.GoodTillCanceled);
 
         _order.Status = orderData.Success ? "open" : orderData.Error!.Message;
@@ -117,30 +116,6 @@ public class ExchangeService
         }
 
         return _order;
-    }
-
-    public async Task<object> PlaceMarketOverrideBuyOrder(string pair, decimal amount)
-    {
-        var orderData = await _client.SpotApi.Trading.PlaceOrderAsync(
-            pair,
-            OrderSide.Buy,
-            NewOrderType.Market,
-            quantity: amount,
-            timeInForce: TimeInForce.GoodTillCanceled);
-        
-        return orderData.Data;
-    }
-
-    public async Task<object> PlaceMarketOverrideSellOrder(string pair, int amount)
-    {
-        var orderData = await _client.SpotApi.Trading.PlaceOrderAsync( // example
-            "MATIC-USDT",
-            OrderSide.Sell,
-            NewOrderType.Market,
-            quantity: amount,
-            timeInForce: TimeInForce.GoodTillCanceled);
-
-        return orderData;
     }
 
     public async Task<object> GetOrderUpdateById(string TxId)

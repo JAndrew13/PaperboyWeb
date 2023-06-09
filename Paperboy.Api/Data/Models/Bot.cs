@@ -9,11 +9,7 @@ public class Bot
     public string Exchange { get; set; } = "KuCoin";
     public string TradingPair { get; set; } = "MATIC-USDT";
     public DateTime CreatedDate { get; set; } = DateTime.Now;
-    public TimeSpan TimeRunning { get; set; } = TimeSpan.Zero;
     public double StartingBalance { get; set; } = 0;
-    public double CurrentBalance { get; set; } = 0;
-    public double ProfitLoss { get; set; } = 0;
-    public double ProfitLossPercent { get; set; } = 0;
     public int TotalTrades { get; set; } = 0;
 
     public ICollection<Alert> Alerts { get; set; } = null!;

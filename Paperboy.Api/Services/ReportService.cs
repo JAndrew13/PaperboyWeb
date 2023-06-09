@@ -7,10 +7,10 @@ namespace Paperboy.Api.Services;
 
 public class ReportService
 {
-    private AppDbContext _db;
+    private readonly AppDbContext _db;
     //private ExchangeService _exchangeService;
-    private OrderService _orderService;
-    private BotService _botService;
+    private readonly OrderService _orderService;
+    private readonly BotService _botService;
 
     public ReportService(
         AppDbContext db,
@@ -25,7 +25,7 @@ public class ReportService
     }
     public async Task<ReportDto> GenerateReportDto(Guid? botId = null)
     {
-        ReportDto report = new ReportDto();
+        ReportDto report = new();
 
         // Get the list of bots, filtered by BotId if provided.
         List<Bot> bots;
@@ -51,7 +51,7 @@ public class ReportService
             foreach (var order in bot.Orders)
             {
                 OrderDto orderDto = _orderService.CreateOrderDto(order);
-                botDto.Orders.Add(orderDto.Id.ToString(), orderDto);
+                botDto.Orders.Add(orderDto.Id!.ToString(), orderDto);
             }
             report.Bots.Add(botDto.Id, botDto);
         }

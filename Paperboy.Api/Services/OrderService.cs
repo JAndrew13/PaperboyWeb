@@ -8,7 +8,7 @@ namespace Paperboy.Api.Services;
 
 public class OrderService
 {
-    private AppDbContext _db;
+    private readonly AppDbContext _db;
     private readonly ExchangeService _exchangeService;
 
     public OrderService(AppDbContext db, ExchangeService exchangeService)
@@ -19,7 +19,7 @@ public class OrderService
 
     public Order CreateNewOrder(Alert alert)
     {
-        Order _order = new Order
+        Order _order = new()
         {
             Id = Guid.NewGuid(),
             OrderType = alert.Action,
@@ -37,7 +37,7 @@ public class OrderService
 
     public OrderDto CreateOrderDto(Order order)
     {
-        OrderDto orderDto = new OrderDto
+        OrderDto orderDto = new()
         {
             Id = order.Id.ToString(),
             OrderType = order.OrderType,
@@ -45,7 +45,7 @@ public class OrderService
             Token2 = order.Token2,
             Pair = order.Pair,
             Status = order.Status,
-            Amount = order.Amount,
+            TokenAmount = order.TokenAmount,
             TimeStamp = order.TimeStamp,
             AlertId = order.AlertId.ToString(),
             BotId = order.BotId.ToString(),
@@ -66,11 +66,14 @@ public class OrderService
 
             decimal orderQuantity = 0;
 
+            // TODO: set _order's TokenValue and TotalValue properties
+            // TODO: refactor this to use switch statement
+
             if (_order.OrderType == "BUY")
             {
                 orderQuantity = token2Balance / token1Value - 3;
                 var orderQuantityRounded = Math.Round(orderQuantity, 1);
-                _order.Amount = orderQuantityRounded;
+                _order.TokenAmount = orderQuantityRounded;
                 var orderResult = await _exchangeService.PlaceMarketBuyOrder(_order);
 
                 _db.Orders.Update(_order);
@@ -80,7 +83,7 @@ public class OrderService
             else if (_order.OrderType == "SELL")
             {
                 var orderQuantityRounded = Math.Round(token1Balance, 1);
-                _order.Amount = orderQuantityRounded - 1;
+                _order.TokenAmount = orderQuantityRounded - 1;
                 var orderResult = await _exchangeService.PlaceMarketSellOrder(_order);
 
                 _db.Orders.Update(_order);
@@ -118,7 +121,7 @@ public class OrderService
         while (retries < maxRetries)
         {
             // Get order status from exchange
-            dynamic response = await _exchangeService.GetOrderUpdateById(orderDto.TxId);
+            dynamic response = await _exchangeService.GetOrderUpdateById(orderDto.TxId!);
 
             if (response != null)
             {
@@ -145,7 +148,7 @@ public class OrderService
     {
         // update the order in the database
 
-        Guid orderId = Guid.Parse(orderDto.Id);
+        Guid orderId = Guid.Parse(orderDto.Id!);
 
         var order = await _db.Orders.FindAsync(orderId);
 
@@ -163,6 +166,6 @@ public class OrderService
             return orderDto;
         }
 
-        return null;
+        return null!;
     }
 }
