@@ -1,10 +1,8 @@
-﻿using Paperboy.Api.Data.Models;
-
-namespace Paperboy.Api.Dtos;
-// TODO: Add Patch endpoint to BotController that updates order details from DTO
-// TODO: Add Method to OrderService to update order details from DTO
+﻿namespace Paperboy.Api.Dtos;
 public class OrderDto
 {
+    public string BotId { get; set; } = null!;
+    public string AlertId { get; set; } = null!;
     public string? Id { get; set; } = null!;
     public string? TxId { get; set; } = null!;
     public string? OrderType { get; set; } = null!;

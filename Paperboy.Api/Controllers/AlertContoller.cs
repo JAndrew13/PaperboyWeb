@@ -7,7 +7,7 @@ using Paperboy.Api.Data.Models;
 namespace Paperboy.api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class AlertsController : ControllerBase
 {
     private readonly AlertService _alertService;

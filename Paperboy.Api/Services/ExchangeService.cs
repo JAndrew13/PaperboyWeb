@@ -6,8 +6,6 @@ using Microsoft.Extensions.Options;
 using Paperboy.Api.Data;
 using Paperboy.Api.Data.Models;
 
-
-
 namespace Paperboy.Api.Services;
 
 

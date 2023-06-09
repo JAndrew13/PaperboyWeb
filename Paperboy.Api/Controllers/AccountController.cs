@@ -4,7 +4,7 @@ using Paperboy.Api.Data.Models;
 
 namespace Paperboy.Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

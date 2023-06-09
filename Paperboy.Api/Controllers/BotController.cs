@@ -1,12 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Paperboy.Api.Services;
 using Paperboy.Api.Data.Models;
 using Paperboy.Api.Dtos;
 
 namespace Paperboy.Api.Controllers;
 
-[Route("[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class BotController : ControllerBase
 {
@@ -24,21 +23,6 @@ public class BotController : ControllerBase
         return Ok(_bot);
     }
 
-    [HttpGet("Orders")]
-    public async Task<IActionResult> GetBotOrders(Guid botId)
-    {
-        Order[] orders = await _botService.GetBotOrders(botId);
-        return Ok(orders);
-    }
-
-    [HttpGet("Alerts")]
-    public async Task<IActionResult> GetBotAlerts(Guid botId)
-    {
-        Alert[] alerts = await _botService.GetBotAlerts(botId);
-        return Ok(alerts);
-    }
-
-    // TODO: Update bot endpoint
     [HttpPatch("Update")]
     public async Task<IActionResult> UpdateBot(BotDto botDto)
     {
@@ -58,6 +42,9 @@ public class BotController : ControllerBase
         {
             return BadRequest("Error! Bot (" + botId + ") could not be removed");
         }
+
+ 
+
     }
 }
 

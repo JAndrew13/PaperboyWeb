@@ -1,6 +1,8 @@
-﻿using Paperboy.Api.Data;
+﻿
+using Paperboy.Api.Data;
 using Paperboy.Api.Data.Models;
 using Paperboy.Api.Dtos;
+
 
 namespace Paperboy.Api.Services;
 
@@ -31,6 +33,25 @@ public class OrderService
         };
 
         return _order;
+    }
+
+    public OrderDto CreateOrderDto(Order order)
+    {
+        OrderDto orderDto = new OrderDto
+        {
+            Id = order.Id.ToString(),
+            OrderType = order.OrderType,
+            Token1 = order.Token1,
+            Token2 = order.Token2,
+            Pair = order.Pair,
+            Status = order.Status,
+            Amount = order.Amount,
+            TimeStamp = order.TimeStamp,
+            AlertId = order.AlertId.ToString(),
+            BotId = order.BotId.ToString(),
+        };
+
+        return orderDto;
     }
 
     public async Task<Order> PlaceMarketOrder(Order _order)

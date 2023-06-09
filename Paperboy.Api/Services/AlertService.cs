@@ -1,8 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
-using Paperboy.Api.Dtos;
+﻿using Paperboy.Api.Dtos;
 using Paperboy.Api.Data;
 using Paperboy.Api.Data.Models;
 

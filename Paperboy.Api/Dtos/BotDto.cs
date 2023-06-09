@@ -1,6 +1,4 @@
-﻿using Paperboy.Api.Data.Models;
-
-namespace Paperboy.Api.Dtos;
+﻿namespace Paperboy.Api.Dtos;
 
 public class BotDto
 {
@@ -15,4 +13,6 @@ public class BotDto
     public double? ProfitLoss { get; set; } = null!;
     public double? ProfitLossPercent { get; set; } = null!;
     public int? TotalTrades { get; set; } = null!;
+
+    public Dictionary<string, OrderDto> Orders { get; set; } = new Dictionary<string, OrderDto>();
 }

@@ -1,8 +1,4 @@
-﻿using System.Data;
-using Paperboy.Api.Data.Models;
-using System;
-
-namespace Paperboy.Api.Dtos;
+﻿namespace Paperboy.Api.Dtos;
 
 public class AlertDto
 {
