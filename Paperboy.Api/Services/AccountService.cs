@@ -1,18 +1,27 @@
-﻿using Paperboy.Api.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Paperboy.Api.Data;
+using Paperboy.Api.Data.Models;
 
 namespace Paperboy.Api.Services;
 
 public class AccountService
 {
-    //private readonly AppDbContext _db;
-    //private readonly OrderService _orderService;
+    private readonly ExchangeService _exchangeService;
 
-    //public AccountService(AppDbContext db)
-    //{
-    //    //_db = db;
-    //}
+    public AccountService(ExchangeService exchangeService)
+    {
+        _exchangeService = exchangeService;
+    }
 
-    // TODO: Fetch Account Tokens from Exchange
-    // TODO: Get Price of Token from Exchange
-    // TODO: Fetch Account Balance from Exchange
+    public async Task<object> ParseAccountSummary()
+    {
+        var response = await _exchangeService.GetAccountSummary();
+        return response;
+    }
+
+    public async Task<object> GetExchangeData(string pair)
+    {
+        var exchangeData = await _exchangeService.GetQuickPrice("MATIC-USDT");
+        return exchangeData;
+    }
 }

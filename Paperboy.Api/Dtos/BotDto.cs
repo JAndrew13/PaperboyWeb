@@ -1,4 +1,6 @@
-﻿namespace Paperboy.Api.Dtos;
+﻿using Paperboy.Api.Services;
+
+namespace Paperboy.Api.Dtos;
 
 public class BotDto
 {

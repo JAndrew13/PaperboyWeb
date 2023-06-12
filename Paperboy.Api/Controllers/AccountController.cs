@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Paperboy.Api.Data.Models;
+using Paperboy.Api.Services;
 
 namespace Paperboy.Api.Controllers
 {
@@ -8,20 +9,28 @@ namespace Paperboy.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        [HttpGet("Accounts")]
-        public IActionResult Get()
+
+        private readonly AccountService _accountService;
+
+        public AccountController(AccountService accountService)
         {
-            // TODO: Fetch Account Balance from Exchange using Account Service
-            // Return A list of accounts and their balances of each token
-            return Ok("Hello World");
+            
+            _accountService = accountService;
         }
 
-        [HttpGet("AccountTokens")]
-        public IActionResult GetTokens()
+        // TODO: Add optional Inupt
+        [HttpGet("Accounts")]
+        public async Task<IActionResult> GetAccountsSummary()
         {
-            // TODO: Fetch Account Tokens from Exchange using Account Service
-            // Return A list tokens for a specific account
-            return Ok("Hello World");
+            var accountData = await _accountService.ParseAccountSummary();
+            return Ok(accountData);
         }
+
+        [HttpGet("GetTokenPrice")]
+        public async Task<IActionResult> GetExchangeData(string pair)
+        {
+            var exchangeData = await _accountService.GetExchangeData(pair);
+            return Ok(exchangeData);
+        }   
     }
 }

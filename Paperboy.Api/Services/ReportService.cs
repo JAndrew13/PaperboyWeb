@@ -48,7 +48,9 @@ public class ReportService
         {
             BotDto botDto = _botService.CreateBotDto(bot);
 
-            foreach (var order in bot.Orders)
+            var orderedOrders = bot.Orders.OrderByDescending(order => order.TimeStamp);
+
+            foreach (var order in orderedOrders)
             {
                 OrderDto orderDto = _orderService.CreateOrderDto(order);
                 botDto.Orders.Add(orderDto.Id!.ToString(), orderDto);

@@ -40,6 +40,7 @@ public class OrderService
         OrderDto orderDto = new()
         {
             Id = order.Id.ToString(),
+            TxId = order.TxId,
             OrderType = order.OrderType,
             Token1 = order.Token1,
             Token2 = order.Token2,
@@ -49,6 +50,8 @@ public class OrderService
             TimeStamp = order.TimeStamp,
             AlertId = order.AlertId.ToString(),
             BotId = order.BotId.ToString(),
+            AtPrice = order.AtPrice,
+            TotalValue = order.TotalValue,
         };
 
         return orderDto;
@@ -74,6 +77,9 @@ public class OrderService
                 orderQuantity = token2Balance / token1Value - 3;
                 var orderQuantityRounded = Math.Round(orderQuantity, 1);
                 _order.TokenAmount = orderQuantityRounded;
+                _order.AtPrice = token1Value;
+                _order.TotalValue = _order.TokenAmount * _order.AtPrice;
+
                 var orderResult = await _exchangeService.PlaceMarketBuyOrder(_order);
 
                 _db.Orders.Update(_order);
@@ -84,7 +90,10 @@ public class OrderService
             {
                 var orderQuantityRounded = Math.Round(token1Balance, 1);
                 _order.TokenAmount = orderQuantityRounded - 1;
+                _order.AtPrice = token1Value;
+                _order.TotalValue = _order.TokenAmount * _order.AtPrice;
                 var orderResult = await _exchangeService.PlaceMarketSellOrder(_order);
+
 
                 _db.Orders.Update(_order);
                 await _db.SaveChangesAsync();
@@ -130,6 +139,7 @@ public class OrderService
 
                 if (quantityFilled == quantity)
                 {
+                    
                     // Order is filled, update status in db
                     return await UpdateOrderStatusInDb(orderDto, "FILLED");
                 }
@@ -151,6 +161,8 @@ public class OrderService
         Guid orderId = Guid.Parse(orderDto.Id!);
 
         var order = await _db.Orders.FindAsync(orderId);
+
+        
 
         if (order != null)
         {

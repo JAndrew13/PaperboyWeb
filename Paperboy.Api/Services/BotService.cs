@@ -1,6 +1,7 @@
 ﻿using Paperboy.Api.Data;
 using Paperboy.Api.Data.Models;
 using Paperboy.Api.Dtos;
+using System.Data.Entity;
 
 namespace Paperboy.Api.Services;
 
@@ -16,7 +17,8 @@ public class BotService
     {
         Bot _newBot = new()
         {
-            Id = Guid.NewGuid()
+            Id = Guid.NewGuid(),
+            CreatedDate = DateTime.Now,
         };
 
         _db.Bots.Add(_newBot);
@@ -44,7 +46,8 @@ public class BotService
             Exchange = bot.Exchange,
             TradingPair = bot.TradingPair,
             StartingBalance = bot.StartingBalance,
-            TotalTrades = bot.TotalTrades
+            TotalTrades = bot.TotalTrades,
+            CreatedDate = bot.CreatedDate
         };
 
         return _botDto;

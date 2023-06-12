@@ -52,7 +52,7 @@ public class ExchangeService
     public async Task<object> GetAccountSummary()
     {
         var accountData = await _client.SpotApi.Account.GetAccountsAsync();
-        return accountData;
+        return accountData.Data; 
     }
 
     public async Task<decimal> GetTokenBalance(string token)
@@ -134,6 +134,12 @@ public class ExchangeService
     {
         var userTrades = await _client.SpotApi.Trading.GetUserTradesAsync(pair); //example
         return userTrades;
+    }
+
+    public async Task<object> GetQuickPrice(string pair)
+    {
+        var singleTokenPrice = await _client.SpotApi.CommonSpotClient.GetTickerAsync(pair);
+        return singleTokenPrice.Data;
     }
 
 

@@ -67,6 +67,8 @@ public class AlertService
             Status = order.Status,
             TokenAmount = order.TokenAmount,
             TimeStamp = order.TimeStamp,
+            TotalValue = order.TotalValue,
+            AtPrice = order.AtPrice,
         };
 
         var updatedOrder = await _orderService.GetOrderUpdateUntilFilledOrLimit(orderDto);
