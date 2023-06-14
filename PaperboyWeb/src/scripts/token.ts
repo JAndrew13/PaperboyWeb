@@ -14,4 +14,16 @@ export class Token {
       this.available = available;
       this.holds = holds;
     }
+
+    getAsset() {
+        return this.asset
+    }
+
+    getType() {
+        return this.type
+    }
+
+    getTotal() {
+        return this.total
+    }
   }

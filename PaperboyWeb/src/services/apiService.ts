@@ -25,7 +25,7 @@ export default {
     }
     const response = await apiClient.get(endpoint);
     const report = await CreateBots(response.data);
-    console.log(report)
+
     return report
     },
 
@@ -36,7 +36,7 @@ export default {
 
   async GetTokenPrice(tokenPair: string) {
     const response = await apiClient.get(`/api/Account/GetTokenPrice?pair=${tokenPair}`);
-    return response.data.lastPrice;
+    return response.data;
   },
 //   // ==== Object Manipulation ==== // 
 

@@ -10,6 +10,10 @@ export class Account {
     this.id = id;
     this.tokens = tokens;
   }
+
+  getTokens() {
+    return this.tokens
+  }
 }
 
 export function CreateAccounts(data: any[]): Account[] {

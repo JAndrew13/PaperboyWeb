@@ -18,8 +18,9 @@
                 <v-chip class="text-overline font-weight-medium">Orders  {{bot.totalTrades }} </v-chip>
                 <v-chip class="text-overline font-weight-medium">Status - {{bot.status}} </v-chip>
                 <v-chip class="text-overline font-weight-medium">Age - {{ getDuration(bot.createdDate) }}</v-chip>
-                <v-chip class="text-overline font-weight-medium">Position - {{bot.orders[0].orderType}}</v-chip>
+                <v-chip class="text-overline font-weight-medium">Position - ordertype</v-chip>
                 <v-chip class="text-overline font-weight-medium">$ {{103.49}} USD</v-chip>
+                <v-chip>{{ tokenPrice }}</v-chip>
               </v-chip-group>
      
         </v-card-item>
@@ -28,20 +29,25 @@
   </template>
   
   <script lang  = "ts">
+  import { ref, watch } from 'vue';
     import  {calcService}  from '../services/calculationService'
     export default {
     props: {
       bot: {
         type: Object,
         required: true
-      }
+      },
+      tokenPrice: {
+      type: Number,
+      required: true
+    }
     },
       computed: {
         botValue() {
           return 0
         },
         totalGainsLosses() {
-          // calculate total gains/losses here
+          calcService.percentChange()
           return 0
         },
   },
@@ -49,7 +55,13 @@
         getDuration(createdDate: string) {
           return calcService.getDuration(createdDate) // you can use getDuration directly in your component now
       },
-    }
+    },
+    setup(props) {
+    watch(() => props.tokenPrice, (newPrice, oldPrice) => {
+      console.log(`Token price updated from ${oldPrice} to ${newPrice}`);
+      // Do something with the updated price
+    });
+  }
   }
   </script>
   
