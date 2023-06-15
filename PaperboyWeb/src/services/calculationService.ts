@@ -55,10 +55,6 @@ function getDuration(timeStamp: string): string {
     return formattedDate;
   }
 
-
-
-
-
 export const calcService = {
     getDuration,
     getTotalAccountsValue,

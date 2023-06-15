@@ -1,31 +1,26 @@
 <template>
+  <v-img :src="bgImage" class="background-image">
   <div>
     <NavBar @open-dialog="dialog = true" />
-    <v-img
-          :src="bgImage"
-          class="background-image"
-        >
-    <v-main>
-      
-      <v-container fluid>
-        
+    
+      <v-main>
+        <v-container fluid>
           <v-container class="fill-height d-flex align-center">
             <v-row>
-          
               <v-col class="text-center">
-                <v-spacer></v-spacer>
-                <h1 class="white--text mb-4 title-text">MeetPaperboy.</h1>
-                <h3 class="font-weight-medium white--text mb-2 subtitle">Your personal algo trading bot.</h3>
+                <div class="title-container"> 
+                  <h1 class="white--text mb-4 title-text">Paperboy.</h1>
+                  <h3 class="font-weight-medium white--text mb-2 subtitle">Your personal algo trading bot.</h3>
+                </div>
               </v-col>
             </v-row>
           </v-container>
-        
-      </v-container>
-    
-    </v-main>
-    <BotCreationDialog v-model="dialog" />
-  </v-img>
+        </v-container>
+      </v-main>
+      <BotCreationDialog v-model="dialog" />
+  
   </div>
+</v-img>
 </template>
 
 <script lang="ts">
@@ -60,20 +55,26 @@ export default {
 <style scoped>
   .title-text {
     font-family: 'Signika', sans-serif;
-    font-weight: 400;
-    font-size: 3rem;
+    font-size: 5rem;
     font-weight: 500;
   }
 
   .subtitle {
     font-family: 'Lilita One', cursive;
-    font-weight: 400;
     font-size: 1.5rem;
     font-weight: 500;
   }
 
-  .background{
-    background-size:cover; 
+  .background-image {
+    /* background-size: cover;  */
+    background-color:aqua
+  }
+
+  /* Add media query for mobile screens */
+  @media only screen and (max-width: 600px) {
+    .title-container {
+      margin-top: 300px; /* Adjust this value to position text further down */
+    }
   }
 
 </style>

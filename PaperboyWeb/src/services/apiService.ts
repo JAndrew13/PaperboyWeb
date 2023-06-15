@@ -77,23 +77,25 @@ export default {
 
   async ForceSell(botId: string) {
     const data = {
-        "action": "sell",
+        "action": "SELL",
         "ticker1": "MATIC",
         "ticker2": "USDT",
         "botId": botId
     };
     const response = await apiClient.post(`/api/Alerts`, data);
+    console.log(response)
     return response.data;
 },
 
 async ForceBuy(botId: string) {
     const data = {
-        "action": "buy",
+        "action": "BUY",
         "ticker1": "MATIC",
         "ticker2": "USDT",
         "botId": botId
     };
     const response = await apiClient.post(`/api/Alerts`, data);
+    console.log(response)
     return response.data;
 }
 };
