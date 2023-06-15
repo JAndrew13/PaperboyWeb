@@ -13,5 +13,7 @@ export default defineComponent({
 </script>
 
 <style>
-/* Add any global styles here */
+body {
+  font-family: 'Roboto', sans-serif;
+}
 </style>

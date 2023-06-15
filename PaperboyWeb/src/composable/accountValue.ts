@@ -1,6 +1,5 @@
 import { ref } from 'vue'
 import apiService from '@/services/apiService'
-import { Account} from '@/scripts/account'
 import { calcService } from '@/services/calculationService'
 
 // Global const accountValue

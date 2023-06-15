@@ -17,7 +17,7 @@ public class BotController : ControllerBase
     }
 
     [HttpPost("Create")]
-    public IActionResult CreateBot()
+    public IActionResult CreateBot(object? botData)
     {
         Bot _bot = _botService.CreateNewBot();
         return Ok(_bot);

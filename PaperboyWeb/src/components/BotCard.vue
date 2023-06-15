@@ -1,36 +1,85 @@
 <template>
     <v-container pa-3 fluid>
       <v-card color="secondary">
-        <v-toolbar color="teal-darken-2">
+        <v-toolbar color="primary">
           <v-toolbar-title>
             <v-col class="mx-auto">
-              <v-row class="text-h5 font-weight-bold"> {{bot.name}} </v-row>
-              <v-row class="text-caption"> {{bot.description}} </v-row>
+              <v-row class="text-h5 font-weight-bold mt-1"> {{bot.name}} </v-row>
+              <v-row class="text-overline mb-0"> {{bot.description}} </v-row>
             </v-col>
           </v-toolbar-title>
        
           <span class="text-h5 font-weight-heavy mr-5"> {{bot.tradingPair}} </span>
-          <!-- This will push the following elements to the right -->
+          
         </v-toolbar>
         <v-card-item>
-        
             <v-chip-group>
-                <v-chip class="text-overline font-weight-medium">Orders  {{bot.totalTrades }} </v-chip>
+                <v-chip class="text-overline font-weight-medium">Total Orders  {{bot.totalTrades }} </v-chip>
                 <v-chip class="text-overline font-weight-medium">Status - {{bot.status}} </v-chip>
                 <v-chip class="text-overline font-weight-medium">Age - {{ getDuration(bot.createdDate) }}</v-chip>
-                <v-chip class="text-overline font-weight-medium">Position - ordertype</v-chip>
-                <v-chip class="text-overline font-weight-medium">$ {{103.49}} USD</v-chip>
-                <v-chip>{{ tokenPrice }}</v-chip>
+                <v-chip class="text-overline font-weight-medium">Est. P/L - {{ - bot.startingBalance }}</v-chip>
               </v-chip-group>
-     
+        </v-card-item>
+        <v-card-item>
+          <v-container>
+          <v-row>
+          <v-btn @click="forceBuy(bot.id)" density="compact" color="green mr-2">Force Buy</v-btn>
+          <v-btn @click="forceSell(bot.id)" density="compact" color="red ml-2">Force Sell</v-btn>
+        </v-row>
+      </v-container>
+        </v-card-item>
+      
+        <v-card-item>
+          <v-expansion-panels class="mb-6" color="primary">
+            <v-expansion-panel color="primary"
+              v-for="order in (bot.orders.length > 5 ? 5 : bot.orders.length)" :key="order" class="mb-2">
+              <v-expansion-panel-title expand-icon="mdi-menu-down" color="accent" >
+                  <v-row cols="auto" >
+                  <div class="mx-2">
+                    <v-btn color="green-lighten-2"   size="small" >{{ bot.orders[order].orderType }} </v-btn>
+                  </div>
+                  <div class="text-overline dark-text" >
+                    
+                      {{ bot.orders[order].tokenAmount}} {{ bot.orders[order].token1 }} 
+                    
+                  </div>
+                    <v-spacer></v-spacer>
+                    <div class="text-overline dark-text" >
+                        @ {{ bot.orders[order].atPrice }} Each
+                    </div>
+                    <v-spacer></v-spacer>
+                  </v-row>
+              </v-expansion-panel-title>
+              <v-expansion-panel-text color="accent">
+                
+                <v-table>
+                  <thead>
+                    <tr>
+                      <th class="text-left text-overline dark-text">Status</th>
+                      <th class="text-left text-overline dark-text">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-left text-overline dark-text">{{ bot.orders[order].status }}</td>
+                      <td class="text-left text-overline dark-text">{{getDateFormat(bot.orders[order].timeStamp)}}</td>
+                    </tr>
+                  </tbody>
+                </v-table>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card-item>
       </v-card>
     </v-container>
   </template>
   
   <script lang  = "ts">
-  import { ref, watch } from 'vue';
+    import { watch } from 'vue';
     import  {calcService}  from '../services/calculationService'
+import apiService from '@/services/apiService';
+
+
     export default {
     props: {
       bot: {
@@ -40,32 +89,34 @@
       tokenPrice: {
       type: Number,
       required: true
-    }
-    },
-      computed: {
-        botValue() {
-          return 0
-        },
-        totalGainsLosses() {
-          calcService.percentChange()
-          return 0
-        },
+      }
   },
       methods: {
         getDuration(createdDate: string) {
-          return calcService.getDuration(createdDate) // you can use getDuration directly in your component now
-      },
+          return calcService.getDuration(createdDate) 
+        },
+        getDateFormat(timeStamp: string) {
+          return calcService.getDateFormat(timeStamp)
+        },
+        forceBuy(id: string) {
+          apiService.ForceBuy(id);
+        },
+        forceSell(id: string) {
+          apiService.ForceSell(id);
+        }
     },
+    
     setup(props) {
-    watch(() => props.tokenPrice, (newPrice, oldPrice) => {
+      watch(() => props.tokenPrice, (newPrice, oldPrice) => {
       console.log(`Token price updated from ${oldPrice} to ${newPrice}`);
-      // Do something with the updated price
+      
+      
     });
   }
   }
   </script>
-  
-  <style>
-   
-  </style>
-  
+<style scoped>
+.dark-text {
+  color: darkslategray !important;
+}
+</style>

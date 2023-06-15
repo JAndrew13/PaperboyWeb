@@ -1,8 +1,7 @@
 // calculationService.ts
 import { Account } from "@/scripts/account";
-import type { Order } from "@/scripts/order";
 import apiService from '../services/apiService';
-import { Token } from "@/scripts/token";
+
 
 
 function getDuration(timeStamp: string): string {
@@ -19,55 +18,6 @@ function getDuration(timeStamp: string): string {
     const minutes = diffInMinutes % 60;
 
     return `${days}D  ${hours}Hr  ${minutes}Min`;
-}
-
-
-
-
- async function percentChange(compareDate: string, orders: Order[]): Promise<number> {
-  const compareDateTime = new Date(compareDate).getTime();
-
-  const filteredOrders = orders.filter(order => new Date(order.timeStamp).getTime() >= compareDateTime);
-
-  if (filteredOrders.length === 0) {
-    throw new Error('No orders found within the compare date');
-  }
-
-  const oldestOrder = filteredOrders.reduce((prev, current) => 
-    new Date(prev.timeStamp) < new Date(current.timeStamp) ? prev : current
-  );
-
-  const previousValue = oldestOrder.totalValue;
-  const accountData = await apiService.GetAccountData();
-    const currentValue = await getAccountValue();
-
-  const percentChange = ((currentValue - (previousValue || 0)) / (previousValue || 1)) * 100;
-
-  return percentChange;
-}
-
- async function valueChange(compareDate: string, orders: Order[]): Promise<number> {
-  const compareDateTime = new Date(compareDate).getTime();
-
-  const filteredOrders = orders.filter(order => new Date(order.timeStamp).getTime() >= compareDateTime);
-
-  if (filteredOrders.length === 0) {
-    throw new Error('No orders found within the compare date');
-  }
-
-  const oldestOrder = filteredOrders.reduce((prev, current) => 
-    new Date(prev.timeStamp) < new Date(current.timeStamp) ? prev : current
-  );
-
-  const previousValue = oldestOrder.totalValue;
-  const accountData = await apiService.GetAccountData();
-const currentValue = await getAccountValue();
-
-
-
-  const valueChange = currentValue - (previousValue || 0);
-
-  return valueChange;
 }
 
  async function getTotalAccountsValue(accountData: Account[]): Promise<number> {
@@ -94,6 +44,16 @@ const currentValue = await getAccountValue();
   return totalValue;
 }
   
+ function getDateFormat(timeStamp: string): string{
+    // format date to be used in the front end user display
+    // incoming timestamp format = "2023-06-09T09:17:16.3972522"
+    // format to "Fri, 09 Jun 2023 09:17:16 GMT"
+
+    const date = new Date(timeStamp);
+    const formattedDate = date.toUTCString();
+
+    return formattedDate;
+  }
 
 
 
@@ -101,44 +61,6 @@ const currentValue = await getAccountValue();
 
 export const calcService = {
     getDuration,
-      getTotalAccountsValue
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Tasks include:
-// ===== Object Initialization =====
-// Build accounts from bot data - takes bot object as parameter
-
-
-// ===== Tokens =====
-// Get value of token amount in currency token - takes token1, token2, and amount as parameters
-
-// ===== Accounts =====
-// Get total value of account - takes account object as parameter
-
-// ===== Orders =====
-// Get total value of order - takes order object as parameter
-
-// ===== Bot =====
-// Get total value of bot - takes bot object as parameter
-// Get total value of all bots - takes bot array as parameter
-// Get total value of all bots in account - takes account object as parameter
-
-// ===== Financial Data =====
-// Get total value of all accounts - takes account array as parameter
-
+    getTotalAccountsValue,
+    getDateFormat,
 }

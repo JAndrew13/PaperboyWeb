@@ -1,14 +1,12 @@
 <template>
 
 
-<v-card max-width="350">
-  <v-card-item>
-    <v-table density="compact">
-    <thead>
+<v-card >
+  <v-card-item class="accent">
+    <v-table  density="compact" class="accent">
+    <thead >
       <tr>
-        <th>
-          <v-spacer></v-spacer>
-        </th>
+       
         <th class="text-overline pa-0">Day</th>
         <th class="text-overline pa-0">Week</th>
         <th class="text-overline pa-0">Month</th>
@@ -19,10 +17,9 @@
         v-for="item in TimeFrames"
         :key="item.name"
       >
-        <td class="font-weight-bold pa-0">{{ "P/L" }}</td>
-        <td class="font-weight-bold pa-0">+{{ item.Day }}%</td>
-        <td class="font-weight-bold pa-0">+{{ item.Week }}%</td>
-        <td class="font-weight-bold pa-0">+{{ item.Month }}%</td>
+        <td class="font-weight-bold pa-0 dark-text">+{{ item.Day }}%</td>
+        <td class="font-weight-bold pa-0 dark-text">+{{ item.Week }}%</td>
+        <td class="font-weight-bold pa-0 dark-text">+{{ item.Month }}%</td>
       </tr>
     </tbody>
 
@@ -35,7 +32,7 @@
 import { Bot } from '@/scripts/bot';
 import { Account } from '@/scripts/account';
 import { type PropType } from 'vue';
-import { calcService } from '@/services/calculationService';
+
 
 export default {
   name: 'OverviewStatsCard',
@@ -69,3 +66,15 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.accent {
+  background-color: #F2EBBF;
+
+}
+
+.dark-text {
+  color: darkslategray !important;
+}
+</style>
+```

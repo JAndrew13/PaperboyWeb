@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { CreateBots } from '@/scripts/bot';
 import { CreateAccounts } from '@/scripts/account';
+import { BotDto } from '@/scripts/botDto';
+
 
 
 // use sample data for now
@@ -27,7 +29,41 @@ export default {
     const report = await CreateBots(response.data);
 
     return report
-    },
+  },
+
+  async CreateNewBot(botData: any) {
+    console.log(botData);
+    const responseCreate = await apiClient.post('/api/Bot/Create');
+    const bot = responseCreate.data;
+
+    const botDto = new BotDto(
+        bot.Id,
+        botData.name,
+        botData.Description,
+        "active",
+        "kucoin",
+        `${botData.token1}-${botData.token2}`,
+        bot.CreatedDate,
+        0,
+        0
+    );
+
+    console.log("PreSend" +botDto);
+    await apiClient.post('api/Bot/Update/', botDto);
+    
+
+    const webhook = {
+        "action": "string",
+        "ticker1": botData.token1,
+        "ticker2": botData.token2,
+        "botId": bot.Id.toString()
+    };
+    console.log(webhook);
+
+    // return the webhook
+    return webhook;
+},
+
 
   async GetAccountData() {
     const response = await apiClient.get('/api/Account/Accounts');
@@ -38,24 +74,27 @@ export default {
     const response = await apiClient.get(`/api/Account/GetTokenPrice?pair=${tokenPair}`);
     return response.data;
   },
-//   // ==== Object Manipulation ==== // 
 
-//   async CreateBot() {
-//     // TODO:   Return bot Id neatly
-//     return apiClient.post('/api/Bot/Create'); // Replace with your actual endpoint
-//   },
+  async ForceSell(botId: string) {
+    const data = {
+        "action": "sell",
+        "ticker1": "MATIC",
+        "ticker2": "USDT",
+        "botId": botId
+    };
+    const response = await apiClient.post(`/api/Alerts`, data);
+    return response.data;
+},
 
-//  async  UpdateBot() {
-//   // TODO:  Take bot id as parameter, return bot  with new data
-//     return apiClient.put('/api/Bot/Update'); // Replace with your actual endpoint
-//   },
-
-//   async DeleteBot() {
-//     // TODO:   take bot parameter, return Ok or Error
-//     return apiClient.delete('/api/Bot/Delete'); // Replace with your actual endpoint
-//   },
-
-//   async GetTokenData() {
-//     //TODO:  take token symbol as parameter, return token data
-// }
+async ForceBuy(botId: string) {
+    const data = {
+        "action": "buy",
+        "ticker1": "MATIC",
+        "ticker2": "USDT",
+        "botId": botId
+    };
+    const response = await apiClient.post(`/api/Alerts`, data);
+    return response.data;
 }
+};
+

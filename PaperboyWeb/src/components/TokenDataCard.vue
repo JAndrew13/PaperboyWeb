@@ -1,16 +1,15 @@
 <template>
-
-            <v-row>
+            <v-row >
                 <v-col cols="auto">
-                    <v-avatar size="18">
+                    <v-avatar size="30">
                         <v-img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png"></v-img>
                     </v-avatar>
                 </v-col>
                 <v-col cols="auto">
-                    <v-card-title class="text-overline pa-0">MATIC / USDT</v-card-title>
+                    <v-card-title class="text pa-0">MATIC / USDT</v-card-title>
                 </v-col>
                 <v-col cols="auto">
-                    <v-card-title class="text-overline pa-0">
+                    <v-card-title class="text pa-0">
                         <transition name="flash" mode="out-in">
                             <div :key="tokenPrice" :class="priceChangeClass">${{ tokenPrice }}</div>
                         </transition>
@@ -46,13 +45,13 @@ export default {
       // Reset color after 0.5 seconds
       setTimeout(() => {
         priceChangeClass.value = 'default-color';
-      }, 500);
+      }, 300);
     };
 
     let intervalId: number | undefined;
     onMounted(() => {
       fetchTokenPrice();
-      intervalId = setInterval(fetchTokenPrice, 3000); // Fetch price every 3 seconds
+      intervalId = setInterval(fetchTokenPrice, 2000); // Fetch price every 3 seconds
     });
 
     onUnmounted(() => {
@@ -73,12 +72,12 @@ export default {
 
 <style>
 .price-up {
-  color: green;
+  color: #28E7ABff;
   transition: color 0.2s;
 }
 
 .price-down {
-  color: red;
+  color: #E26D0D;
   transition: color 0.2s;
 }
 

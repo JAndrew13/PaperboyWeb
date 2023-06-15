@@ -1,21 +1,13 @@
 <template>
   <div class="financial-analysis-table">
-    <v-sheet fluid class="mx-auto" variant="outlined" >
-    <v-row cols="auto">
-
-      <v-col cols="12" md="6" lg="4">
-        <AccountValueCard :accounts="accounts" @update-token-price="$emit('update-token-price', $event)"></AccountValueCard>
+    <v-card fluid pa-3 class="mx-auto" color="secondary" width="350" >
+      <v-col  auto>
+        <AccountValueCard :accounts="accounts" @update-token-price="$emit('update-token-price', $event)" color="primary"></AccountValueCard>
+      
+        <OverviewStatsCard :bots = "bots" :accounts="accounts" class="secondary--text"></OverviewStatsCard>
       </v-col>
-
-      <v-col cols="12" md="6" lg="4">
-        <OverviewStatsCard :bots = "bots" :accounts="accounts"></OverviewStatsCard>
-      </v-col>
-
-
-     
-    </v-row>
-</v-sheet>
-</div>
+    </v-card>
+  </div>
 </template>
   
   <script lang="ts">
