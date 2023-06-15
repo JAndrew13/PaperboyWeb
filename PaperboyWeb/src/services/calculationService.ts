@@ -37,6 +37,9 @@ function getDuration(timeStamp: string): string {
         const tokenPrice = await apiService.GetTokenPrice(`${token}-USDT`);
         accountValue += accountTokens[token].getTotal() * tokenPrice.lastPrice;
       }
+      if (token === "USDC" || token === "USDT"){
+        accountValue += accountTokens[token].getTotal()
+      }
     }
     totalValue += accountValue;
   }

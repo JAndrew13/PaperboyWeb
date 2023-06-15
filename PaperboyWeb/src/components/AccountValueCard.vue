@@ -23,7 +23,7 @@
       </v-row>
     </v-card-item>
     <v-card-item >
-    <v-btn class="accent"  @click="refreshAccountValue">Refresh Account Value</v-btn>
+    <v-btn class="accent" @click="refreshAccountValue">Refresh</v-btn>
     </v-card-item>
   </v-card>
   

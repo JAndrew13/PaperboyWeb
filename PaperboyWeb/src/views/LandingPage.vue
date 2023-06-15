@@ -66,7 +66,7 @@ export default {
   }
 
   .background-image {
-    /* background-size: cover;  */
+    background-size: cover; 
     background-color:aqua
   }
 

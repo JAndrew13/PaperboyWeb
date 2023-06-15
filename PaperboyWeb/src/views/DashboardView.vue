@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Bot } from '@/scripts/bot';
 
 import NavBar from '@/components/NavBar.vue';
@@ -50,7 +50,6 @@ const bots = ref<Bot[]>([]);
 const tokenPrice = ref(0);
 const dialog = ref(false);
 
-
 const fetchAccounts = async () => {
   const response = await apiService.GetAccountData();
   accounts.value = response;
@@ -63,15 +62,27 @@ const fetchBots = async () => {
 };
 
 onMounted(async () => { 
+  // Fetch initially
   await fetchAccounts();
   await fetchBots();
-});
 
+  // Fetch every 5 seconds
+  const intervalId = setInterval(async () => {
+    await fetchAccounts();
+    await fetchBots();
+  }, 5000);
+
+  // Clear the interval when the component is unmounted
+  onUnmounted(() => {
+    clearInterval(intervalId);
+  });
+});
 </script>
 <style scoped>
 .background{
   background-color: aquamarine;
-    background: 100% 100%; 
-  
+  background-size: cover; 
+  background: 100% 100%; 
+
 }
 </style>
