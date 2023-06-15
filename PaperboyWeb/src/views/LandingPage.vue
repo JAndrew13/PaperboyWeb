@@ -3,6 +3,7 @@
     <NavBar @open-dialog="dialog = true" />
     <v-img
           :src="bgImage"
+          class="background-image"
         >
     <v-main>
       
@@ -10,10 +11,11 @@
         
           <v-container class="fill-height d-flex align-center">
             <v-row>
+          
               <v-col class="text-center">
                 <v-spacer></v-spacer>
-                <h1 class="font-weight-bold white--text mb-4">Welcome to Paperboy</h1>
-                <h3 class="font-weight-medium white--text mb-2">Your personal algo trading bot.</h3>
+                <h1 class="white--text mb-4 title-text">MeetPaperboy.</h1>
+                <h3 class="font-weight-medium white--text mb-2 subtitle">Your personal algo trading bot.</h3>
               </v-col>
             </v-row>
           </v-container>
@@ -56,5 +58,22 @@ export default {
 </script>
 
 <style scoped>
-/* Add any styles specific to the landing page here */
+  .title-text {
+    font-family: 'Signika', sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    font-weight: 500;
+  }
+
+  .subtitle {
+    font-family: 'Lilita One', cursive;
+    font-weight: 400;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .background{
+    background-size:cover; 
+  }
+
 </style>

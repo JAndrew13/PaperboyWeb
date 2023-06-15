@@ -32,20 +32,20 @@
         <v-card-item>
           <v-expansion-panels class="mb-6" color="primary">
             <v-expansion-panel color="primary"
-              v-for="order in (bot.orders.length > 5 ? 5 : bot.orders.length)" :key="order" class="mb-2">
+              v-for="order in (bot.orders)" :key="order" class="mb-2">
               <v-expansion-panel-title expand-icon="mdi-menu-down" color="accent" >
                   <v-row cols="auto" >
                   <div class="mx-2">
-                    <v-btn color="green-lighten-2"   size="small" >{{ bot.orders[order].orderType }} </v-btn>
+                    <v-btn :color="order.orderType === 'SELL' ? 'red-lighten-3' : 'green-lighten-3'" size="small">{{ order.orderType }}</v-btn>
                   </div>
                   <div class="text-overline dark-text" >
                     
-                      {{ bot.orders[order].tokenAmount}} {{ bot.orders[order].token1 }} 
+                      {{ order.tokenAmount}} {{ order.token1 }} 
                     
                   </div>
                     <v-spacer></v-spacer>
                     <div class="text-overline dark-text" >
-                        @ {{ bot.orders[order].atPrice }} Each
+                        @ {{ order.atPrice }} Each
                     </div>
                     <v-spacer></v-spacer>
                   </v-row>
@@ -61,8 +61,8 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td class="text-left text-overline dark-text">{{ bot.orders[order].status }}</td>
-                      <td class="text-left text-overline dark-text">{{getDateFormat(bot.orders[order].timeStamp)}}</td>
+                      <td class="text-left text-overline dark-text">{{ order.status }}</td>
+                      <td class="text-left text-overline dark-text">{{getDateFormat(order.timeStamp)}}</td>
                     </tr>
                   </tbody>
                 </v-table>
@@ -104,6 +104,7 @@ import apiService from '@/services/apiService';
         forceSell(id: string) {
           apiService.ForceSell(id);
         }
+        
     },
     
     setup(props) {

@@ -12,7 +12,7 @@ using Paperboy.Api.Data;
 namespace Paperboy.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230609153745_InitialCreate")]
+    [Migration("20230615164101_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

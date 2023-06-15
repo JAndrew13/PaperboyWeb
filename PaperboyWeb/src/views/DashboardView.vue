@@ -1,21 +1,36 @@
 <template>
-  <div class="dashboard">
+
+   <v-img
+          :src="bgImageDesktop"
+          class="background"
+          cover
+        >
+  <div>
     <NavBar @open-dialog="dialog = true" />
+   
     <v-main>
+    
       <v-container>
         <FinancialAnalysisTable :bots="bots" :accounts="accounts" @update-token-price="tokenPrice = $event" ></FinancialAnalysisTable>
       </v-container>
-      <v-divider color="purp"></v-divider>
       <v-container>
         <v-row cols=" auto">
           <v-col cols="12" md="6" lg="4" v-for="bot in bots" :key="bot.id">
-            <BotCard1 :bot="bot" :tokenPrice="tokenPrice"/>
+            <BotCard :bot="bot" :tokenPrice="tokenPrice"/>
           </v-col>
         </v-row>
       </v-container>
+
     </v-main>
+  
     <BotCreationDialog v-model="dialog" />
+
+ 
   </div>
+
+
+</v-img>
+
 </template>
 
 <script setup lang="ts">
@@ -23,17 +38,18 @@ import { ref, onMounted } from 'vue';
 import { Bot } from '@/scripts/bot';
 
 import NavBar from '@/components/NavBar.vue';
-import BotCard1 from '@/components/BotCard.vue';
+import BotCard from '@/components/BotCard.vue';
 import BotCreationDialog from '@/components/BotCreationDialog.vue';
 import apiService from '@/services/apiService';
 import FinancialAnalysisTable from '@/components/FinancialAnalysisTable.vue';
 import { Account } from '@/scripts/account';
-
+import bgImageDesktop from '@/assets/bg3.png'; // Import the desktop image
 
 const accounts = ref<Account[]>([]);
 const bots = ref<Bot[]>([]);
 const tokenPrice = ref(0);
 const dialog = ref(false);
+
 
 const fetchAccounts = async () => {
   const response = await apiService.GetAccountData();
@@ -42,6 +58,7 @@ const fetchAccounts = async () => {
 
 const fetchBots = async () => {
   let response = await apiService.GetBots(); 
+  console.log(response)
   bots.value = response;
 };
 
@@ -52,10 +69,9 @@ onMounted(async () => {
 
 </script>
 <style scoped>
-.dashboard {
+.background{
   background-color: aquamarine;
-  background-image: url(@/assets/bg3.png);
-  background-size: cover;
-
+    background: 100% 100%; 
+  
 }
 </style>

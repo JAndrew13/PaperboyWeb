@@ -5,7 +5,7 @@ import Dashboard from '@/views/DashboardView.vue';
 const routes = [
   {
     path: '/',
-    name: 'LandingPage',
+    name: 'home',
     component: LandingPage,
   },
   {
