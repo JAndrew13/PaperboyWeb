@@ -1,18 +1,18 @@
-﻿namespace Paperboy.Api.Data.Models
+﻿namespace Paperboy.Api.Data.Models;
 
+public static class Seeder
 {
-    public static class Seeder
+    public static void Seed(AppDbContext context)
     {
-        public static void Seed(AppDbContext context) 
+        SeedBots(context);
+    }
+    public static void SeedBots(AppDbContext db)
+    {
+        if (db.Bots.Any()) return;
+        db.Bots.Add(new Bot 
         {
-            SeedUsers(context);
-        }
-        public static void SeedUsers(AppDbContext db)
-        {
-            if (db.Users.Any()) return;
-            db.Users.Add(new User { Name = "John" });
-            db.Users.Add(new User { Name = "Jane" });
-            db.SaveChanges();
-        }
+            Id = Guid.NewGuid(),
+        });
+        db.SaveChanges();
     }
 }

@@ -1,15 +1,8 @@
-using CryptoExchange.Net.Authentication;
-using Kucoin.Net.Clients;
-using Kucoin.Net.Objects;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Paperboy.Api.Data;
+using Paperboy.Api.Data.Models;
 using Paperboy.Api.Services;
-//using Paperboy.Api.Services;
-
-
-
 
 var MyAllowAllOrigins = "_myAllowAllOrigins";
 
@@ -27,31 +20,33 @@ builder.Services.AddCors(options =>
 });
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Configuration.AddJsonFile("secrets.json");
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.Configure<Secrets>(options => builder.Configuration.GetSection("Secrets").Bind(options));
+
 builder.Services.AddScoped<AlertService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<ExchangeService>();
+builder.Services.AddScoped<BotService>();
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<ReportService>();
 
 var app = builder.Build();
 
-// Create and seed the database
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-    //Seeder.SeedWords(db);
-    //Seeder.SeedPlayers(db);
+    Seeder.SeedBots(db);
 }
 
 // Configure the HTTP request pipeline.

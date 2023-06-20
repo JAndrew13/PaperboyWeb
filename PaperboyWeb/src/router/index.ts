@@ -1,24 +1,24 @@
-// router/index.ts
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
-import AboutView from '@/views/AboutView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import LandingPage from '@/views/LandingPage.vue';
+import Dashboard from '@/views/DashboardView.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HomeView
+    name: 'home',
+    component: LandingPage,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: AboutView
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
   },
-]
+  // Add more routes as needed
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

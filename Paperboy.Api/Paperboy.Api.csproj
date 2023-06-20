@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\ExchangeController.cs" />
-    <Compile Remove="Dtos\AlertDto.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
     <Folder Include="Content\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -22,19 +22,175 @@ namespace Paperboy.Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Paperboy.Api.Data.User", b =>
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Alert", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("BotId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Ticker1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ticker2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BotId");
+
+                    b.ToTable("Alerts");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Bot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Exchange")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.Property<double>("StartingBalance")
+                        .HasColumnType("float");
 
-                    b.ToTable("Users");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalTrades")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TradingPair")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bots");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AlertId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("AtPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("BotId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("OrderType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pair")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TokenAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TxId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlertId")
+                        .IsUnique();
+
+                    b.HasIndex("BotId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Alert", b =>
+                {
+                    b.HasOne("Paperboy.Api.Data.Models.Bot", "Bot")
+                        .WithMany("Alerts")
+                        .HasForeignKey("BotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bot");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Order", b =>
+                {
+                    b.HasOne("Paperboy.Api.Data.Models.Alert", "Alert")
+                        .WithOne("Order")
+                        .HasForeignKey("Paperboy.Api.Data.Models.Order", "AlertId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Paperboy.Api.Data.Models.Bot", "Bot")
+                        .WithMany("Orders")
+                        .HasForeignKey("BotId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Alert");
+
+                    b.Navigation("Bot");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Alert", b =>
+                {
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Paperboy.Api.Data.Models.Bot", b =>
+                {
+                    b.Navigation("Alerts");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

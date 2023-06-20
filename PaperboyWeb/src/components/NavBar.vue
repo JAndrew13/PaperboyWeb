@@ -1,37 +1,51 @@
-<!-- components/Navbar.vue -->
 <template>
-  <v-app-bar app class="custom-navbar">
-    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-    <v-toolbar-title>Paperboy</v-toolbar-title>
-    <v-spacer></v-spacer>
-    <v-btn text="Home">
-      <router-link to="/" class="text-decoration-none text--white">Home</router-link>
-    </v-btn>
-    <v-btn text="About">
-      <router-link to="/about" class="text-decoration-none text--white">About</router-link>
-    </v-btn>
-  </v-app-bar>
+  <div>
+    <v-app-bar app color="primary" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer" class="d-sm-none"></v-app-bar-nav-icon>
+    
+      <v-toolbar-title class="text-h6">Paperboy</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="drawer = !drawer" to="/" class="d-none d-sm-flex">Home</v-btn>
+      <v-btn @click="drawer = !drawer" to="/dashboard" class="d-none d-sm-flex">Dashboard</v-btn>
+      <v-btn @click="isDialogOpen = true" class="d-none d-sm-flex">Create</v-btn>
+    </v-app-bar>
+    <v-navigation-drawer v-model="drawer" absolute temporary class="d-sm-none background">
+      <v-list>
+        <router-link to="/">
+          <v-list-item>Home</v-list-item>
+        </router-link>
+        <router-link to="/dashboard">
+          <v-list-item>Dashboard</v-list-item>
+        </router-link>
+        <v-list-item @click="isDialogOpen = true">Create</v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    
+    <!-- BotCreationDialog component -->
+    <BotCreationDialog v-model:dialog="isDialogOpen" />
+
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { ref } from 'vue';
+import BotCreationDialog from '@/components/BotCreationDialog.vue'; // Make sure to import BotCreationDialog component
 
-export default defineComponent({
+export default {
   name: 'NavBar',
-  data() {
-    return {
-      drawer: false
-    }
-  }
-})
+  components: {
+    BotCreationDialog
+  },
+  setup() {
+    const drawer = ref(false);
+    const isDialogOpen = ref(false);
+    return { drawer, isDialogOpen };
+  },
+};
 </script>
 
 <style scoped>
-.custom-navbar {
-  background-color: #008080;
-}
-
-.text--white {
-  color: white !important;
+.background {
+  background-color: #3B297Aff;
 }
 </style>

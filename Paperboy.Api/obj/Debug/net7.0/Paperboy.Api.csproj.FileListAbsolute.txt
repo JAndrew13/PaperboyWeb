@@ -14,9 +14,11 @@ C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Paperboy.Api.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Paperboy.Api.pdb
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Azure.Core.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Azure.Identity.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\CryptoExchange.Net.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\EntityFramework.SqlServer.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\EntityFramework.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Humanizer.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Kucoin.Net.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
@@ -38,6 +40,7 @@ C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.OpenApi.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -82,6 +85,4 @@ C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\refint\Paperboy.Api.dll
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\Paperboy.Api.pdb
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\Paperboy.Api.genruntimeconfig.cache
 C:\git\Paperboy\Paperboy.Api\obj\Debug\net7.0\ref\Paperboy.Api.dll
-C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\CryptoExchange.Net.dll
-C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Kucoin.Net.dll
-C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\git\Paperboy\Paperboy.Api\bin\Debug\net7.0\secrets.json
