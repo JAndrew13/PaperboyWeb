@@ -20,9 +20,13 @@ I needed to create something that wouldn't be a one-and-done type of solution. I
 Contained in this repository is the heart of Paperboy, a glorified excell spreadsheet with a snazzy web UI. 
 </p>
 
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+![My Skills](https://skillicons.dev/icons?i=dotnet,azure,github,ts,vue)
 
 <!-- Folder Structure -->
-## :bangbang: Folder Structure
+## Folder Structure
 
 Here is the folder structure of 3D-Portfolio.
 
@@ -69,10 +73,7 @@ Here is the folder structure of 3D-Portfolio.
 ```
 <br />
 
-<!-- TechStack -->
-### :space_invader: Tech Stack
 
-![My Skills](https://skillicons.dev/icons?i=dotnet,azure,github,ts,vue)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,7 +82,6 @@ Here is the folder structure of 3D-Portfolio.
 ### Prerequisites:
 - VS Code
 - Visual Studio
-- SSMS
 - Kucoin Account
 - Trading View Account
 
