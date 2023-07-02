@@ -205,15 +205,12 @@ This project is still very much a work in progress and should be used with cauti
 
 Before you get started on the crazy PineScript rabbit-hole your about to go on.. 
 please take a second to read the following disclaimers.
- 
-	- :sparkle: The Paperboy team is **NOT** responsible if  you lose money or if your bots make bad trades.:sparkle:
-	- :warning: **Don't give** your life savings to Paperboy
-	- :warning: Money cannot leave your account via paperboy unless you authorize transfers when you created the api.  
-	- :warning: **Do not** authorize transfers when you create your Kucoin API, If you need to cash out, do it manually!
-	- :warning: This is whole project is about having robots make choices with your money, its inherently risky.
-	- :warning: Regarding custom algos - If you build it, build it right.
-
-	-:sparkle: The Paperboy team is **NOT** responsible if  you lose money or if your bots make bad trades.:sparkle:
+* :sparkle: The Paperboy team is **NOT** responsible if  you lose money or if your bots make bad trades.:sparkle:
+* :warning: **Don't give** your life savings to Paperboy
+* :warning: Money cannot leave your account via paperboy unless you authorize transfers when you created the api.  
+* :warning: **Do not** authorize transfers when you create your Kucoin API, If you need to cash out, do it manually!
+* :warning: This is whole project is about having robots make choices with your money, its inherently risky.
+* :warning: Regarding custom algos - If you build it, build it right.
 
 With that out the way, Have fun and good luck! 
 
