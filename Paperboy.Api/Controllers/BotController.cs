@@ -27,6 +27,7 @@ public class BotController : ControllerBase
     public async Task<IActionResult> UpdateBot(BotDto botDto)
     {
         await _botService.UpdateBot(botDto);
+        
         return Ok("Success: Bot Updated");
     }
 

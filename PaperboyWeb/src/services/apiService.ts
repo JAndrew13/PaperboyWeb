@@ -2,6 +2,7 @@ import axios from 'axios';
 import { CreateBots } from '@/scripts/bot';
 import { CreateAccounts } from '@/scripts/account';
 import { BotDto } from '@/scripts/botDto';
+import { mdiConsoleLine } from '@mdi/js';
 
 
 
@@ -31,35 +32,35 @@ export default {
     return report
   },
 
-  async CreateNewBot(botData: any) {
-    console.log(botData);
+  async CreateNewBot(
+    name: string, 
+    description: string, 
+    token1: string, 
+    token2: string) {
+
     const responseCreate = await apiClient.post('/api/Bot/Create');
     const bot = responseCreate.data;
-
     const botDto = new BotDto(
-        bot.Id,
-        botData.name,
-        botData.Description,
+        bot.id,
+        name,
+        description,
         "active",
         "kucoin",
-        `${botData.token1}-${botData.token2}`,
+        `${token1.toUpperCase()}-${token2.toUpperCase()}`,
         bot.CreatedDate,
         0,
         0
     );
 
-    console.log("PreSend" +botDto);
-    await apiClient.post('api/Bot/Update/', botDto);
-    
+    await apiClient.patch('api/Bot/Update/', botDto);
+      
 
     const webhook = {
         "action": "string",
-        "ticker1": botData.token1,
-        "ticker2": botData.token2,
-        "botId": bot.Id.toString()
+        "ticker1": token1.toUpperCase(),
+        "ticker2": token2.toUpperCase(),
+        "botId": bot.id.toString()
     };
-    console.log(webhook);
-
     // return the webhook
     return webhook;
 },
